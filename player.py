@@ -2,7 +2,8 @@ class Player:
     def __init__(self, name):
         self.name = name
         self.rack = []
-        self.score = 0
+        self.game_score = 0
+        self.round_score = 0
 
     '''
     Plays a turn and returns a true/false value to indicate whether or not the player has won during this round
@@ -11,18 +12,22 @@ class Player:
         print(f"{self.name}'s turn")
         self.print_rack() # show the player their rack
         print(f'Discard pile: {deck.discards[-1]}') # show the player the discard pile
-        draw_action = int(input('Choose 1 to draw a new card from the deck, choose 2 to choose the card from the discard pile.\n'))
-
+        draw_action = int(input('Choose 1 to draw the card from the discard pile, choose 2 to draw a new card.\n'))
+        while(draw_action != 1 and draw_action !=2):
+            draw_action = int(input('Invalid Input!! Please choose 1 to draw the card from the discard pile, choose 2 to draw a new card.\n'))
         if draw_action == 1:
-            card = deck.draw_card()
-        elif draw_action == 2:
             card = deck.draw_discard()
-        print(f'you drew {card}')
-
+        elif draw_action == 2:
+            card = deck.draw_card()
+        print(f'You drew {card}')
+        #calling rack card places the card in the correct position in the rack
         discard = self.rack_card(card)
         deck.discards.append(discard)
-
-        if self.score_rack() == 75:
+        #redisplay rack to player after changes
+        print('Your updated rack:\n')
+        self.print_rack()
+        self.round_score = self.score_rack()
+        if self.round_score == 75:
             return True
 
         return False
@@ -35,7 +40,7 @@ class Player:
             discard = self.rack[position]
             self.rack[position] = card
 
-        print(f'{self.name} discarded {discard}')
+        print(f'You just discarded {discard}')
         return discard
 
     '''
