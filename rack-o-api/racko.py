@@ -3,7 +3,7 @@ from player import Player
 from deck import Deck
 
 
-def main():
+def play():
     # Get player count
     player_count = int(input('How many players? '))
     players = []
@@ -74,7 +74,3 @@ def main():
 
 def print_ascii_crap():
     print('')  # TODO
-
-
-if __name__ == '__main__':
-    main()
